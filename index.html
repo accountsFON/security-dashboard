@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>519 Security Mission Control</title>
+<script>
+// Status data loaded from external JSON file
+window.__SECURITY_STATUS = null;
+fetch('status.json')
+  .then(r => r.json())
+  .then(data => {
+    window.__SECURITY_STATUS = data;
+    render(data);
+  })
+  .catch(err => {
+    document.getElementById('loading').innerHTML = '<div style="color:var(--text3);font-size:12px;text-align:center;padding:40px;">Failed to load status data. Ensure status.json exists.</div>';
+    document.getElementById('main-content').style.display = 'block';
+    document.getElementById('live-label').textContent = 'OFFLINE';
+  });
+</script>
+<style>
+:root {
+  --bg: #080c18;
+  --bg2: #0d1220;
+  --bg3: #111827;
+  --bg4: #1a2235;
+  --border: #1e2d45;
+  --border2: #263652;
+  --text: #e2e8f4;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --crit: #ff3b3b; --crit-d: #7f1111; --crit-bg: #140606;
+  --high: #ff7a00; --high-d: #7f3a00; --high-bg: #140a00;
+  --med:  #f0c000; --med-d:  #7a6000; --med-bg:  #131000;
+  --low:  #4d9fff; --low-d:  #1a4080; --low-bg:  #060d18;
+  --good: #00d4aa; --good-d: #007060; --good-bg: #00110d;
+  --info: #818cf8; --info-d: #3730a3; --info-bg: #080b1a;
+  --accent: #4d9fff;
+  --r: #ff3b3b; --g: #00d4aa; --y: #f0c000; --o: #ff7a00;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono','Fira Code','Consolas',monospace;font-size:13px;line-height:1.6;min-height:100vh;}
+
+/* ---- HEADER ---- */
+.hdr{background:linear-gradient(135deg,#0d1220,#111827);border-bottom:1px solid var(--border2);padding:14px 22px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hdr-l{display:flex;align-items:center;gap:14px;}
+.logo{width:38px;height:38px;background:linear-gradient(135deg,#4d9fff,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 0 18px rgba(77,159,255,.25);}
+.hdr-title{font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.hdr-sub{font-size:10px;color:var(--text3);letter-spacing:.1em;}
+.hdr-r{display:flex;align-items:center;gap:12px;}
+.live-pill{display:flex;align-items:center;gap:6px;background:var(--good-bg);border:1px solid var(--good-d);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--good);letter-spacing:.1em;}
+.live-dot{width:6px;height:6px;background:var(--good);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.refresh-info{font-size:10px;color:var(--text3);}
+.refresh-count{color:var(--accent);}
+
+/* ---- LAYOUT ---- */
+.wrap{padding:18px 22px;max-width:1800px;margin:0 auto;}
+.section-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--text3);margin:18px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--border);}
+.grid{display:grid;gap:14px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+.g5{grid-template-columns:repeat(5,1fr);}
+.span2{grid-column:span 2;}
+.span3{grid-column:span 3;}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr);}.g5{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:700px){.g2,.g3,.g4,.g5{grid-template-columns:1fr;}.span2,.span3{grid-column:span 1;}}
+
+/* ---- CARDS ---- */
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:15px;transition:border-color .2s;}
+.card:hover{border-color:var(--border2);}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;}
+.card-title{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:7px;}
+
+/* ---- BADGES ---- */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+.b-crit{background:var(--crit-bg);border:1px solid var(--crit-d);color:var(--crit);}
+.b-high{background:var(--high-bg);border:1px solid var(--high-d);color:var(--high);}
+.b-med {background:var(--med-bg); border:1px solid var(--med-d); color:var(--med);}
+.b-low {background:var(--low-bg); border:1px solid var(--low-d); color:var(--low);}
+.b-good{background:var(--good-bg);border:1px solid var(--good-d);color:var(--good);}
+.b-info{background:var(--info-bg);border:1px solid var(--info-d);color:var(--info);}
+
+/* ---- SCORE ---- */
+.score-wrap{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:18px 24px;display:flex;align-items:center;gap:24px;margin-bottom:16px;flex-wrap:wrap;}
+.score-ring-wrap{position:relative;width:90px;height:90px;flex-shrink:0;}
+.score-ring{width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.score-inner{width:68px;height:68px;background:var(--bg3);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.score-num{font-size:22px;font-weight:700;line-height:1;}
+.score-den{font-size:10px;color:var(--text3);}
+.score-info h2{font-size:17px;font-weight:700;margin-bottom:3px;}
+.score-info p{font-size:12px;color:var(--text2);max-width:380px;}
+.score-bars{display:flex;gap:14px;flex-wrap:wrap;margin-left:auto;}
+.sbar{min-width:120px;}
+.sbar-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px;}
+.sbar-track{height:4px;background:var(--border);border-radius:2px;margin-bottom:3px;}
+.sbar-fill{height:4px;border-radius:2px;transition:width 1.2s ease;}
+.sbar-val{font-size:11px;font-weight:600;}
+
+/* ---- STAT CARDS ---- */
+.stat-num{font-size:30px;font-weight:700;line-height:1;margin-bottom:3px;}
+.stat-lbl{font-size:11px;color:var(--text3);}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:5px;}
+
+/* ---- METRIC ROWS ---- */
+.mrow{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);}
+.mrow:last-child{border-bottom:none;}
+.mlbl{color:var(--text2);font-size:12px;}
+.mval{font-size:12px;font-weight:600;}
+.mbar-wrap{display:flex;align-items:center;gap:8px;}
+.mbar{width:90px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.mbar-fill{height:100%;border-radius:2px;}
+
+/* ---- STATUS DOT ---- */
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;}
+.dot-good{background:var(--good);box-shadow:0 0 6px var(--good);}
+.dot-crit{background:var(--crit);box-shadow:0 0 6px var(--crit);animation:blink 1.5s infinite;}
+.dot-high{background:var(--high);box-shadow:0 0 6px var(--high);}
+.dot-med {background:var(--med); box-shadow:0 0 6px var(--med);}
+.dot-info{background:var(--accent);}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* ---- CHECK LIST ---- */
+.cklist{display:flex;flex-direction:column;gap:5px;}
+.ck{display:flex;align-items:flex-start;gap:9px;padding:7px 10px;border-radius:6px;font-size:12px;}
+.ck-ok  {background:var(--good-bg);color:#a7f3d0;}
+.ck-fail{background:var(--crit-bg);color:#fca5a5;}
+.ck-warn{background:var(--med-bg); color:#fde68a;}
+.ck-info{background:var(--info-bg);color:#c7d2fe;}
+.ck-icon{flex-shrink:0;font-size:13px;margin-top:1px;}
+
+/* ---- FINDING ---- */
+.finding{padding:11px;border-radius:8px;margin-bottom:7px;border-left:3px solid transparent;}
+.finding:last-child{margin-bottom:0;}
+.fc{background:var(--crit-bg);border-left-color:var(--crit);}
+.fh{background:var(--high-bg);border-left-color:var(--high);}
+.fm{background:var(--med-bg); border-left-color:var(--med);}
+.fl{background:var(--low-bg); border-left-color:var(--low);}
+.finding-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.finding-id{font-size:11px;font-weight:700;}
+.finding-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+.finding-fix{font-size:11px;color:var(--text3);margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.05);}
+.finding-fix strong{color:var(--text2);}
+
+/* ---- ALERT FEED ---- */
+.alert-feed{display:flex;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto;}
+.alert-item{display:flex;align-items:flex-start;gap:9px;padding:7px 10px;border-radius:6px;border-left:3px solid transparent;font-size:11px;}
+.ai-crit{background:var(--crit-bg);border-left-color:var(--crit);color:#fca5a5;}
+.ai-high{background:var(--high-bg);border-left-color:var(--high);color:#fed7aa;}
+.ai-warn{background:var(--med-bg); border-left-color:var(--med); color:#fde68a;}
+.alert-ts{font-size:10px;color:var(--text3);flex-shrink:0;margin-top:1px;}
+.alert-msg{word-break:break-word;flex:1;}
+.no-alerts{text-align:center;padding:20px;color:var(--text3);font-size:12px;}
+
+/* ---- CHANNEL GRID ---- */
+.chan-card{text-align:center;padding:14px 10px;}
+.chan-icon{font-size:22px;margin-bottom:7px;}
+.chan-name{font-size:11px;font-weight:700;margin-bottom:6px;}
+
+/* ---- CODE ---- */
+code{background:rgba(77,159,255,.1);color:var(--accent);padding:1px 5px;border-radius:3px;font-size:11px;}
+
+/* ---- ALERT BANNER ---- */
+.alert-banner{background:var(--crit-bg);border:1px solid var(--crit-d);border-radius:9px;padding:13px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:11px;animation:blink-border 3s infinite;}
+@keyframes blink-border{0%,100%{border-color:var(--crit-d);}50%{border-color:transparent;}}
+.ab-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.ab-title{color:var(--crit);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;margin-bottom:3px;}
+.ab-body{color:#ff9a9a;font-size:12px;}
+
+/* ---- TABLE ---- */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{text-align:left;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:7px 9px;border-bottom:1px solid var(--border2);}
+.tbl td{padding:8px 9px;font-size:12px;color:var(--text2);border-bottom:1px solid var(--border);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:rgba(255,255,255,.02);}
+.tbl td:first-child{font-weight:600;color:var(--text);}
+
+/* ---- FOOTER ---- */
+.footer{margin-top:22px;padding:14px 22px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;color:var(--text3);font-size:11px;}
+
+/* ---- LOADING OVERLAY ---- */
+#loading{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:12px;}
+.spinner{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <div style="color:var(--text3);font-size:12px">Loading mission control...</div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-l">
+    <div class="logo">🛡️</div>
+    <div>
+      <div class="hdr-title">Security Mission Control</div>
+      <div class="hdr-sub">Five One Nine Marketing &bull; OpenClaw Host &bull; Hager</div>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div class="refresh-info">Next refresh: <span class="refresh-count" id="refresh-count">5:00</span></div>
+    <div class="live-pill"><div class="live-dot"></div><span id="live-label">SNAPSHOT</span></div>
+  </div>
+</div>
+
+<div class="wrap" id="main-content" style="display:none;">
+
+  <!-- CRITICAL ALERT BANNER (shown only when criticals exist) -->
+  <div id="crit-banner" class="alert-banner" style="display:none;">
+    <div class="ab-icon">🚨</div>
+    <div>
+      <div class="ab-title">Critical Security Finding</div>
+      <div class="ab-body" id="crit-banner-text"></div>
+    </div>
+  </div>
+
+  <!-- SCORE ROW -->
+  <div class="score-wrap" id="score-wrap">
+    <div class="score-ring-wrap">
+      <div class="score-ring" id="score-ring">
+        <div class="score-inner">
+          <span class="score-num" id="score-num">--</span>
+          <span class="score-den">/100</span>
+        </div>
+      </div>
+    </div>
+    <div class="score-info">
+      <h2 id="score-label">Loading...</h2>
+      <p id="score-desc">Collecting security data...</p>
+    </div>
+    <div class="score-bars">
+      <div class="sbar"><div class="sbar-lbl">Container/OS</div><div class="sbar-track"><div class="sbar-fill" id="bar-os" style="width:0%;background:var(--good)"></div></div><div class="sbar-val" id="val-os" style="color:var(--good)">85/100</div></div>
+      <div class="sbar"><div class="sbar-lbl">App Config</div><div class="sbar-track"><div class="sbar-fill" id="bar-app" style="width:0%"></div></div><div class="sbar-val" id="val-app">--</div></div>
+      <div class="sbar"><div class="sbar-lbl">Network</div><div class="sbar-track"><div class="sbar-fill" id="bar-net" style="width:0%;background:var(--good)"></div></div><div class="sbar-val" id="val-net" style="color:var(--good)">75/100</div></div>
+      <div class="sbar"><div class="sbar-lbl">Load</div><div class="sbar-track"><div class="sbar-fill" id="bar-load" style="width:0%"></div></div><div class="sbar-val" id="val-load">--</div></div>
+      <div class="sbar"><div class="sbar-lbl">Threats</div><div class="sbar-track"><div class="sbar-fill" id="bar-threat" style="width:0%"></div></div><div class="sbar-val" id="val-threat">--</div></div>
+    </div>
+  </div>
+
+  <!-- FINDING COUNT ROW -->
+  <div class="grid g4" id="count-row" style="margin-bottom:14px;">
+    <div class="card" style="text-align:center;"><div class="stat-num" id="cnt-crit" style="color:var(--crit)">--</div><div class="stat-lbl">Critical</div><div class="stat-sub" id="cnt-crit-lbl"></div></div>
+    <div class="card" style="text-align:center;"><div class="stat-num" id="cnt-high" style="color:var(--high)">--</div><div class="stat-lbl">High Alerts</div></div>
+    <div class="card" style="text-align:center;"><div class="stat-num" id="cnt-warn" style="color:var(--med)">--</div><div class="stat-lbl">Warnings</div></div>
+    <div class="card" style="text-align:center;"><div class="stat-num" id="gw-status" style="color:var(--good)">--</div><div class="stat-lbl">Gateway</div><div class="stat-sub" id="last-updated"></div></div>
+  </div>
+
+  <!-- SYSTEM STATUS -->
+  <div class="section-lbl">System Health</div>
+  <div class="grid g3" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">💻 Host System</div><span class="badge b-good">ONLINE</span></div>
+      <div class="mrow"><span class="mlbl">OS</span><span class="mval">Debian GNU/Linux 13</span></div>
+      <div class="mrow"><span class="mlbl">Kernel</span><span class="mval" style="font-size:11px;">6.12.74+deb13+1-amd64</span></div>
+      <div class="mrow"><span class="mlbl">Uptime</span><span class="mval" id="sys-uptime">--</span></div>
+      <div class="mrow"><span class="mlbl">Container IP</span><span class="mval">10.0.0.177</span></div>
+      <div class="mrow"><span class="mlbl">Process User</span><span class="mval">u4s [non-root]</span></div>
+      <div class="mrow"><span class="mlbl">SSH Daemon</span><span class="mval" style="color:var(--good)">Not running ✓</span></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">📊 Resources</div><span class="badge" id="load-badge">NORMAL</span></div>
+      <div class="mrow"><span class="mlbl">CPU Cores</span><span class="mval" id="sys-cores">16</span></div>
+      <div class="mrow"><span class="mlbl">Load Avg</span><span class="mval" id="sys-load">--</span></div>
+      <div class="mrow"><span class="mlbl">RAM</span>
+        <div class="mbar-wrap"><div class="mbar"><div class="mbar-fill" id="bar-mem" style="width:0%;background:var(--good)"></div></div><span class="mval" id="sys-mem">--</span></div>
+      </div>
+      <div class="mrow"><span class="mlbl">Disk /data</span>
+        <div class="mbar-wrap"><div class="mbar"><div class="mbar-fill" id="bar-disk" style="width:0%;background:var(--good)"></div></div><span class="mval" id="sys-disk">--</span></div>
+      </div>
+      <div class="mrow"><span class="mlbl">Swap</span><span class="mval">None</span></div>
+      <div class="mrow"><span class="mlbl">Zombies</span><span class="mval" id="sys-zombies">--</span></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">🔒 Container Isolation</div><span class="badge b-good">HARDENED</span></div>
+      <div class="cklist">
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>All Linux capabilities dropped (CapEff=0)</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>NoNewPrivs=1 (no escalation)</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>Running as non-root user u4s</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>lshell: restricted to openclaw only</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>No SSH daemon running</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>No public listening ports</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>tini as PID 1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIT FINDINGS + ALERT FEED -->
+  <div class="section-lbl">Security Audit &amp; Live Threat Feed</div>
+  <div class="grid g2" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">🔍 OpenClaw Audit Findings</div><span class="badge b-info" id="audit-badge">scanning...</span></div>
+      <div id="findings-list"><div style="color:var(--text3);font-size:12px;text-align:center;padding:20px;">Loading audit results...</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">⚡ Live Threat Feed</div><span class="badge b-info" id="threat-badge">--</span></div>
+      <div id="alert-feed" class="alert-feed"><div class="no-alerts">Scanning gateway logs...</div></div>
+    </div>
+  </div>
+
+  <!-- NETWORK + CHANNELS -->
+  <div class="section-lbl">Network &amp; Channel Exposure</div>
+  <div class="grid g2" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">🌐 Network Status</div><span class="badge b-good">MINIMAL EXPOSURE</span></div>
+      <div class="cklist">
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>Gateway: loopback-only (127.0.0.1:18789)</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>No public listening ports in container</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>External access via Hostinger nginx proxy only</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>controlUi.allowedOrigins: localhost only</div>
+        <div class="ck ck-ok"><span class="ck-icon">✅</span>Docker internal DNS (127.0.0.11)</div>
+        <div class="ck ck-warn"><span class="ck-icon">⚠️</span>Host-level firewall: unverified from container</div>
+        <div class="ck ck-warn"><span class="ck-icon">⚠️</span>trustedProxies not configured (WARN)</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><div class="card-title">📡 Channel Attack Surface</div></div>
+      <div class="grid g3" style="gap:8px;">
+        <div class="card chan-card"><div class="chan-icon">📱</div><div class="chan-name">Telegram</div><span class="badge b-good">RESTRICTED</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">allowlist only</div></div>
+        <div class="card chan-card"><div class="chan-icon">💬</div><div class="chan-name">Discord</div><span class="badge b-med">VERIFY</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">check allowFrom</div></div>
+        <div class="card chan-card"><div class="chan-icon">🔷</div><div class="chan-name">Slack</div><span class="badge b-med">VERIFY</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">check allowFrom</div></div>
+        <div class="card chan-card"><div class="chan-icon">🟢</div><div class="chan-name">WhatsApp</div><span class="badge b-med">VERIFY</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">check allowFrom</div></div>
+        <div class="card chan-card"><div class="chan-icon">🌐</div><div class="chan-name">Webchat</div><span class="badge b-good">TOKEN GATED</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">Caleb only</div></div>
+        <div class="card chan-card"><div class="chan-icon">🔗</div><div class="chan-name">MCP Webflow</div><span class="badge b-med">EXTERNAL</span><div style="font-size:10px;color:var(--text3);margin-top:6px;">mcp.webflow.com</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMEDIATION TABLE -->
+  <div class="section-lbl">Open Remediation Items</div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><div class="card-title">🗺️ Priority Remediation Tracker</div><span class="badge b-info">OPEN ITEMS</span></div>
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Severity</th><th>Issue</th><th>Effort</th><th>Priority</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>HIGH-001</td><td><span class="badge b-high">HIGH</span></td><td>Full exec trust, no approval prompts</td><td>15 min</td><td style="color:var(--high)">This week</td><td>Set exec.security=allowlist or ask=on-miss</td></tr>
+        <tr><td>HIGH-002</td><td><span class="badge b-high">HIGH</span></td><td>Chromium noSandbox mode</td><td>30-60 min</td><td style="color:var(--high)">This week</td><td>Set noSandbox=false + adjust container caps</td></tr>
+        <tr><td>HIGH-003</td><td><span class="badge b-high">HIGH</span></td><td>OpenClaw out of date</td><td>5 min</td><td style="color:var(--high)">This week</td><td><code>openclaw update</code></td></tr>
+        <tr><td>MED-001</td><td><span class="badge b-med">MEDIUM</span></td><td>Discord/Slack/WhatsApp access unverified</td><td>30 min</td><td style="color:var(--med)">1 week</td><td>Add allowFrom restrictions per channel</td></tr>
+        <tr><td>MED-002</td><td><span class="badge b-med">MEDIUM</span></td><td>Gateway trustedProxies not set</td><td>10 min</td><td style="color:var(--med)">1 week</td><td>Set gateway.trustedProxies to Hostinger proxy IP</td></tr>
+        <tr><td>LOW-001</td><td><span class="badge b-low">LOW</span></td><td>Zombie processes</td><td>1 hr</td><td style="color:var(--low)">Monitor</td><td>Investigate shell exec cleanup</td></tr>
+        <tr><td>LOW-002</td><td><span class="badge b-low">LOW</span></td><td>No centralized auth logging</td><td>2-4 hrs</td><td style="color:var(--low)">1 month</td><td>Set up syslog forwarding</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- end wrap -->
+
+<div class="footer">
+  <div style="display:flex;align-items:center;gap:8px;">🛡️ <span>Hager - IT &amp; Cybersecurity | Five One Nine Marketing</span></div>
+  <div id="footer-ts" style="color:var(--text3)">Initializing...</div>
+</div>
+
+<script>
+// ---- UTILITIES ----
+const $ = id => document.getElementById(id);
+const scoreColor = s => s >= 80 ? 'var(--good)' : s >= 60 ? 'var(--med)' : s >= 40 ? 'var(--high)' : 'var(--crit)';
+const scoreLabel = s => s >= 80 ? 'GOOD POSTURE' : s >= 65 ? 'MODERATE RISK' : s >= 45 ? 'HIGH RISK' : 'CRITICAL RISK';
+const scoreDesc  = s => s >= 80 ? 'Security posture is solid. Monitor open items and run weekly audits.' :
+                         s >= 65 ? 'Some issues need attention. Review high-priority findings.' :
+                         s >= 45 ? 'Multiple high-risk issues present. Immediate remediation required.' :
+                                   'Critical vulnerabilities detected. Take action now.';
+const fmtBytes = mb => mb > 1024 ? `${(mb/1024).toFixed(1)}GB` : `${mb}MB`;
+const fmtTime = iso => {
+  try {
+    const d = new Date(iso);
+    const diff = Math.floor((Date.now() - d) / 1000);
+    if (diff < 60) return `${diff}s ago`;
+    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+    return `${Math.floor(diff/3600)}h ago`;
+  } catch { return iso; }
+};
+const severityClass = s => ({critical:'fc',high:'fh',warn:'fm',info:'fl','medium':'fm','low':'fl'})[s] || 'fl';
+const severityBadge = s => ({critical:'b-crit',high:'b-high',warn:'b-med',medium:'b-med',low:'b-low',info:'b-info'})[s] || 'b-info';
+const severityLabel = s => s.toUpperCase();
+
+// ---- RENDER ----
+function render(S) {
+  const sys = S.system || {};
+  const audit = S.audit || {};
+  const threats = S.threats || {};
+  const alerts = S.alerts || [];
+  const summary = audit.summary || {};
+  const findings = audit.findings || [];
+  const score = S.score || 0;
+  const gw = S.gateway || {};
+
+  // Loading done
+  $('loading').style.display = 'none';
+  $('main-content').style.display = 'block';
+
+  // Score ring
+  const col = scoreColor(score);
+  const deg = Math.round(score / 100 * 360);
+  $('score-ring').style.background = `conic-gradient(${col} 0deg, ${col} ${deg}deg, var(--border) ${deg}deg)`;
+  $('score-ring').style.boxShadow = `0 0 28px ${col}44`;
+  $('score-num').textContent = score;
+  $('score-num').style.color = col;
+  $('score-label').textContent = `Security Score: ${scoreLabel(score)}`;
+  $('score-desc').textContent = scoreDesc(score);
+
+  // Score bars
+  const loadScore = sys.loadStatus === 'normal' ? 85 : sys.loadStatus === 'elevated' ? 70 : sys.loadStatus === 'high' ? 50 : 30;
+  const appScore = 80 - (summary.critical||0)*20 - (summary.warn||0)*8;
+  const threatScore = 100 - (threats.criticalAlerts||0)*20 - (threats.highAlerts||0)*5 - (threats.warnAlerts||0)*2;
+  const setBar = (id, vid, val, col) => {
+    const v = Math.max(0, Math.min(100, val));
+    $(id).style.width = v + '%';
+    $(id).style.background = col || scoreColor(v);
+    $(vid).textContent = v + '/100';
+    $(vid).style.color = col || scoreColor(v);
+  };
+  setBar('bar-app', 'val-app', appScore);
+  setBar('bar-load', 'val-load', loadScore);
+  setBar('bar-threat', 'val-threat', Math.max(0, threatScore));
+
+  // Count cards
+  $('cnt-crit').textContent = summary.critical || 0;
+  $('cnt-high').textContent = threats.highAlerts || 0;
+  $('cnt-warn').textContent = (summary.warn||0) + (threats.warnAlerts||0);
+  $('gw-status').textContent = gw.ok ? 'OK' : 'ERROR';
+  $('gw-status').style.color = gw.ok ? 'var(--good)' : 'var(--crit)';
+  $('last-updated').textContent = 'Updated ' + fmtTime(S.updatedAt);
+  $('footer-ts').textContent = 'Last scan: ' + new Date(S.updatedAt).toLocaleString();
+
+  // Critical banner
+  const crits = findings.filter(f => f.severity === 'critical');
+  if (crits.length > 0) {
+    $('crit-banner').style.display = 'flex';
+    $('crit-banner-text').innerHTML = crits.map(f =>
+      `<strong>${f.title}:</strong> ${(f.detail||'').split('\n')[0]}`
+    ).join('<br>');
+  } else {
+    $('crit-banner').style.display = 'none';
+  }
+
+  // Load badge
+  const loadColors = {normal:'b-good', elevated:'b-med', high:'b-high', critical:'b-crit'};
+  $('load-badge').className = 'badge ' + (loadColors[sys.loadStatus] || 'b-info');
+  $('load-badge').textContent = (sys.loadStatus || 'UNKNOWN').toUpperCase();
+
+  // System metrics
+  $('sys-uptime').textContent = sys.uptime || '--';
+  $('sys-cores').textContent = `${sys.cpuCores || 16} cores`;
+  const load = sys.load || [0,0,0];
+  $('sys-load').textContent = `${load[0].toFixed(2)} / ${load[1].toFixed(2)} / ${load[2].toFixed(2)}`;
+  $('sys-load').style.color = sys.loadStatus === 'normal' ? 'var(--good)' :
+                              sys.loadStatus === 'elevated' ? 'var(--med)' :
+                              sys.loadStatus === 'high' ? 'var(--high)' : 'var(--crit)';
+  const mem = sys.memory || {};
+  $('bar-mem').style.width = (mem.pct||0) + '%';
+  $('bar-mem').style.background = mem.pct > 85 ? 'var(--crit)' : mem.pct > 70 ? 'var(--high)' : 'var(--good)';
+  $('sys-mem').textContent = `${fmtBytes(mem.usedMB||0)} / ${fmtBytes(mem.totalMB||0)} (${mem.pct||0}%)`;
+  const disk = sys.disk || {};
+  $('bar-disk').style.width = (disk.pct||0) + '%';
+  $('bar-disk').style.background = disk.pct > 85 ? 'var(--crit)' : disk.pct > 70 ? 'var(--high)' : 'var(--good)';
+  $('sys-disk').textContent = `${fmtBytes(disk.usedMB||0)} / ${fmtBytes(disk.totalMB||0)} (${disk.pct||0}%)`;
+  $('sys-zombies').textContent = sys.zombies || 0;
+  $('sys-zombies').style.color = sys.zombies > 5 ? 'var(--high)' : sys.zombies > 0 ? 'var(--med)' : 'var(--good)';
+
+  // Audit findings
+  const auditBadge = $('audit-badge');
+  auditBadge.textContent = `${summary.critical||0}C ${summary.warn||0}W ${summary.info||0}I`;
+  auditBadge.className = 'badge ' + ((summary.critical||0) > 0 ? 'b-crit' : (summary.warn||0) > 0 ? 'b-med' : 'b-good');
+
+  const findEl = $('findings-list');
+  if (findings.length === 0) {
+    findEl.innerHTML = '<div style="color:var(--good);text-align:center;padding:20px;font-size:12px;">✅ No findings detected</div>';
+  } else {
+    findEl.innerHTML = findings.map(f => `
+      <div class="finding ${severityClass(f.severity)}">
+        <div class="finding-hdr">
+          <span class="finding-id" style="color:var(--${f.severity==='critical'?'crit':f.severity==='warn'?'med':f.severity})">${f.checkId||f.title}</span>
+          <span class="badge ${severityBadge(f.severity)}">${severityLabel(f.severity)}</span>
+        </div>
+        <div class="finding-desc">${(f.detail||f.title||'').split('\n')[0]}</div>
+        ${f.remediation ? `<div class="finding-fix"><strong>Fix:</strong> ${f.remediation}</div>` : ''}
+      </div>
+    `).join('');
+  }
+
+  // Alert feed
+  const threatBadge = $('threat-badge');
+  const totalThreats = (threats.criticalAlerts||0) + (threats.highAlerts||0);
+  threatBadge.textContent = totalThreats > 0 ? `${totalThreats} threats` : 'clear';
+  threatBadge.className = 'badge ' + (totalThreats > 0 ? ((threats.criticalAlerts||0) > 0 ? 'b-crit' : 'b-high') : 'b-good');
+
+  const feedEl = $('alert-feed');
+  if (alerts.length === 0) {
+    feedEl.innerHTML = '<div class="no-alerts">✅ No threats detected in recent logs</div>';
+  } else {
+    const alertClass = l => l === 'critical' ? 'ai-crit' : l === 'high' ? 'ai-high' : 'ai-warn';
+    feedEl.innerHTML = [...alerts].reverse().map(a => `
+      <div class="alert-item ${alertClass(a.level)}">
+        <span class="alert-ts">${fmtTime(a.ts)}</span>
+        <span class="alert-msg">${a.message}</span>
+      </div>
+    `).join('');
+  }
+}
+
+// ---- COUNTDOWN ----
+let refreshSecs = 300;
+function tick() {
+  refreshSecs--;
+  if (refreshSecs <= 0) {
+    $('refresh-count').textContent = 'refreshing...';
+    window.location.reload();
+    return;
+  }
+  const m = Math.floor(refreshSecs / 60);
+  const s = refreshSecs % 60;
+  $('refresh-count').textContent = `${m}:${s.toString().padStart(2,'0')}`;
+}
+setInterval(tick, 1000);
+
+// ---- INIT ----
+// Data loading handled by fetch() in the head script block
+</script>
+</body>
+</html>
