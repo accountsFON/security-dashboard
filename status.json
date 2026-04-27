@@ -1,28 +1,28 @@
 {
-  "ts": 1777259818345,
-  "updatedAt": "2026-04-27T03:16:58.345933+00:00",
-  "score": 46,
+  "ts": 1777263466980,
+  "updatedAt": "2026-04-27T04:17:46.980080+00:00",
+  "score": 50,
   "system": {
     "load": [
-      21.6,
-      21.56,
-      21.62
+      20.58,
+      20.9,
+      20.92
     ],
     "loadStatus": "high",
     "cpuCores": 16,
     "memory": {
       "totalMB": 515793,
-      "usedMB": 153576,
-      "pct": 29.8
+      "usedMB": 160419,
+      "pct": 31.1
     },
     "disk": {
-      "usedMB": 6573,
+      "usedMB": 7063,
       "totalMB": 10240,
-      "pct": 65
+      "pct": 69
     },
-    "uptime": "37d 17h",
+    "uptime": "37d 18h",
     "zombies": 0,
-    "processes": 25
+    "processes": 58
   },
   "audit": {
     "summary": {
@@ -64,145 +64,155 @@
   },
   "threats": {
     "criticalAlerts": 0,
-    "highAlerts": 2,
-    "warnAlerts": 28,
+    "highAlerts": 0,
+    "warnAlerts": 30,
     "totalAlerts": 30
   },
   "alerts": [
     {
-      "ts": "2026-04-27T02:06:55.280Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] whatsapp missing register/activate export"
-    },
-    {
-      "ts": "2026-04-27T02:06:57.738Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] discord missing register/activate export"
-    },
-    {
-      "ts": "2026-04-27T02:06:57.767Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] slack missing register/activate export"
-    },
-    {
-      "ts": "2026-04-27T02:06:57.781Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] whatsapp missing register/activate export"
-    },
-    {
-      "ts": "2026-04-27T02:06:57.783Z",
-      "level": "warn",
-      "message": "warn plugins {\"subsystem\":\"plugins\"} [plugins] 3 plugin(s) failed to initialize (validation: discord, slack, whatsapp). Run 'openclaw plugins list' for details."
-    },
-    {
-      "ts": "2026-04-27T02:07:09.886Z",
-      "level": "warn",
-      "message": "error Gateway failed to start: gateway already running (pid 23562); lock timeout after 5000ms"
-    },
-    {
-      "ts": "2026-04-27T02:07:09.915Z",
-      "level": "warn",
-      "message": "error Port 18789 is already in use."
-    },
-    {
-      "ts": "2026-04-27T02:07:09.917Z",
-      "level": "warn",
-      "message": "error - Port is in use but process details are unavailable (install lsof or run as an admin user)."
-    },
-    {
-      "ts": "2026-04-27T02:07:20.618Z",
+      "ts": "2026-04-27T03:51:08.216Z",
       "level": "warn",
       "message": "info [warn] subagent cleanup finalize failed (6b95dc50-73d4-4aef-916f-e0e729ac1f4b): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
     },
     {
-      "ts": "2026-04-27T02:07:20.622Z",
+      "ts": "2026-04-27T03:51:08.220Z",
       "level": "warn",
       "message": "info [warn] subagent cleanup finalize failed (4d87dc83-92d9-4ffa-9c0e-5e57c8ad9fc1): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
     },
     {
-      "ts": "2026-04-27T02:07:32.745Z",
+      "ts": "2026-04-27T03:51:08.251Z",
+      "level": "warn",
+      "message": "error Subagent announce failed: Error: gateway closed (1006 abnormal closure (no close frame)): no close reason"
+    },
+    {
+      "ts": "2026-04-27T03:51:20.453Z",
       "level": "warn",
       "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=878bf4071103 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
     },
     {
-      "ts": "2026-04-27T02:07:41.242Z",
+      "ts": "2026-04-27T03:51:20.458Z",
       "level": "warn",
-      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in announcing for 8497ms (gateway fqdn=878bf4071103 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 state=..."
+      "message": "error Subagent announce failed: Error: gateway timeout after 10000ms"
     },
     {
-      "ts": "2026-04-27T02:08:46.835Z",
+      "ts": "2026-04-27T03:51:20.460Z",
+      "level": "warn",
+      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} handshake timeout conn=9cf14a66-87a0-4595-8772-774500da15b0 peer=127.0.0.1:33838->127.0.0.1:18789 remote=127.0.0.1"
+    },
+    {
+      "ts": "2026-04-27T03:51:27.556Z",
+      "level": "warn",
+      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"handshake-timeout\",\"handshake\":\"failed\",\"durationMs\":18014,\"lastFrameType\":\"req\",\"lastFrameMethod\":\"connect\",\"lastFrameId\":\"f6f8d8a0-ffad-4b98-a694..."
+    },
+    {
+      "ts": "2026-04-27T03:51:28.489Z",
+      "level": "warn",
+      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"invalid-handshake\",\"handshake\":\"failed\",\"durationMs\":935,\"lastFrameType\":\"req\",\"lastFrameMethod\":\"connect\",\"lastFrameId\":\"3a041b04-f544-48f9-8adf-2..."
+    },
+    {
+      "ts": "2026-04-27T03:51:42.944Z",
+      "level": "warn",
+      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"invalid-handshake\",\"handshake\":\"failed\",\"durationMs\":736,\"lastFrameType\":\"req\",\"lastFrameMethod\":\"connect\",\"lastFrameId\":\"62def3c2-45e1-4d20-b64e-d..."
+    },
+    {
+      "ts": "2026-04-27T03:51:55.557Z",
+      "level": "warn",
+      "message": "warn diagnostic {\"subsystem\":\"diagnostic\"} lane wait exceeded: lane=session:agent:main:main waitedMs=11021 queueAhead=0"
+    },
+    {
+      "ts": "2026-04-27T03:52:09.049Z",
+      "level": "warn",
+      "message": "info [warn] subagent cleanup finalize failed (c0049a62-e13e-4263-9c90-73114c0ea944): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
+    },
+    {
+      "ts": "2026-04-27T04:18:25.396392+00:00",
+      "level": "warn",
+      "message": "        print(f\"Error {e.code}\")"
+    },
+    {
+      "ts": "2026-04-27T04:00:44.128Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:00:44.172Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:00:44.352Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:00:44.421Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:01:01.883Z",
+      "level": "warn",
+      "message": "warn agent/embedded {\"subsystem\":\"agent/embedded\"} {\"event\":\"embedded_run_agent_end\",\"tags\":[\"error_handling\",\"lifecycle\",\"agent_end\",\"assistant_error\"],\"runId\":\"67101850-7fb4-4c4f-8ff7-88bb935faeb5\",..."
+    },
+    {
+      "ts": "2026-04-27T04:06:51.938Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:06:51.971Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:09:28.767Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:09:28.808Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
+    },
+    {
+      "ts": "2026-04-27T04:09:28.864Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:13:15.701Z",
+      "level": "warn",
+      "message": "error [tools] exec failed: exec preflight: complex interpreter invocation detected; refusing to run without script preflight validation. Use a direct `python <file>.py` or `node <file>.js` command. ra..."
+    },
+    {
+      "ts": "2026-04-27T04:13:15.722Z",
+      "level": "warn",
+      "message": "error [tools] exec failed: exec preflight: complex interpreter invocation detected; refusing to run without script preflight validation. Use a direct `python <file>.py` or `node <file>.js` command. ra..."
+    },
+    {
+      "ts": "2026-04-27T04:16:27.968Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:16:27.987Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:16:28.068Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
+    },
+    {
+      "ts": "2026-04-27T04:16:28.100Z",
+      "level": "warn",
+      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
+    },
+    {
+      "ts": "2026-04-27T04:16:33.285Z",
       "level": "warn",
       "message": "warn plugins {\"subsystem\":\"plugins\"} memory-core: managed dreaming cron could not be reconciled (cron service unavailable)."
-    },
-    {
-      "ts": "2026-04-27T02:16:52.862Z",
-      "level": "warn",
-      "message": "warn cron-delivery {\"subsystem\":\"cron-delivery\"} {\"error\":\"Delivering to Telegram requires target <chatId>\"} cron: failed to resolve failure destination target"
-    },
-    {
-      "ts": "2026-04-27T02:27:55.732Z",
-      "level": "warn",
-      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} handshake timeout conn=3b582549-cfba-4602-8c48-7627e5bb4395 peer=127.0.0.1:45446->127.0.0.1:18789 remote=127.0.0.1"
-    },
-    {
-      "ts": "2026-04-27T02:27:55.741Z",
-      "level": "warn",
-      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"handshake-timeout\",\"handshake\":\"failed\",\"durationMs\":10007,\"host\":\"127.0.0.1:18789\",\"origin\":\"http://127.0.0.1:18789\",\"userAgent\":\"Go-http-client/1..."
-    },
-    {
-      "ts": "2026-04-27T02:38:46.893Z",
-      "level": "warn",
-      "message": "warn plugins {\"subsystem\":\"plugins\"} memory-core: managed dreaming cron could not be reconciled (cron service unavailable)."
-    },
-    {
-      "ts": "2026-04-27T03:10:41.883Z",
-      "level": "warn",
-      "message": "info exec: elevated command # Use the working Caleb URL to send the email with full HT... print(f\"Error {e.code}: {e.read().decode()[:200]}\")"
-    },
-    {
-      "ts": "2026-04-27T03:10:41.884Z",
-      "level": "warn",
-      "message": "info exec: elevated command # Use the working Caleb URL to send the email with full HT... print(f\"Error {e.code}: {e.read().decode()[:200]}\")"
-    },
-    {
-      "ts": "2026-04-27T03:16:28.513Z",
-      "level": "high",
-      "message": "error [tools] browser failed: Navigation blocked: strict browser SSRF policy requires an IP-literal URL because browser DNS rebinding protections are unavailable for hostname-based navigation raw_para..."
-    },
-    {
-      "ts": "2026-04-27T03:16:28.515Z",
-      "level": "high",
-      "message": "error [tools] browser failed: Navigation blocked: strict browser SSRF policy requires an IP-literal URL because browser DNS rebinding protections are unavailable for hostname-based navigation raw_para..."
-    },
-    {
-      "ts": "2026-04-27T03:16:31.698Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: BrowserProfileNotFoundError: Profile \"jay-profile\" not found. Available profiles: openclaw, user raw_params={\"action\":\"start\",\"profile\":\"jay-profile\",\"url\":\"https://githu..."
-    },
-    {
-      "ts": "2026-04-27T03:16:31.699Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: BrowserProfileNotFoundError: Profile \"jay-profile\" not found. Available profiles: openclaw, user raw_params={\"action\":\"start\",\"profile\":\"jay-profile\",\"url\":\"https://githu..."
-    },
-    {
-      "ts": "2026-04-27T03:16:34.980Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: PortInUseError: Port 9222 is already in use. raw_params={\"action\":\"start\",\"url\":\"https://github.com/login\"}"
-    },
-    {
-      "ts": "2026-04-27T03:16:34.981Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: PortInUseError: Port 9222 is already in use. raw_params={\"action\":\"start\",\"url\":\"https://github.com/login\"}"
-    },
-    {
-      "ts": "2026-04-27T03:16:40.555Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: PortInUseError: Port 9222 is already in use. raw_params={\"action\":\"navigate\",\"url\":\"https://github.com/settings/tokens/new\"}"
-    },
-    {
-      "ts": "2026-04-27T03:16:40.557Z",
-      "level": "warn",
-      "message": "error [tools] browser failed: PortInUseError: Port 9222 is already in use. raw_params={\"action\":\"navigate\",\"url\":\"https://github.com/settings/tokens/new\"}"
     }
   ]
 }
