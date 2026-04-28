@@ -1,28 +1,28 @@
 {
-  "ts": 1777270741336,
-  "updatedAt": "2026-04-27T06:19:01.336043+00:00",
+  "ts": 1777347497039,
+  "updatedAt": "2026-04-28T03:38:17.039101+00:00",
   "score": 50,
   "system": {
     "load": [
-      21.6,
-      21.52,
-      21.55
+      17.77,
+      17.41,
+      18.16
     ],
     "loadStatus": "high",
     "cpuCores": 16,
     "memory": {
       "totalMB": 515793,
-      "usedMB": 160161,
-      "pct": 31.1
+      "usedMB": 161366,
+      "pct": 31.3
     },
     "disk": {
-      "usedMB": 7067,
+      "usedMB": 7314,
       "totalMB": 10240,
-      "pct": 70
+      "pct": 72
     },
-    "uptime": "37d 20h",
+    "uptime": "38d 17h",
     "zombies": 0,
-    "processes": 60
+    "processes": 62
   },
   "audit": {
     "summary": {
@@ -60,164 +60,14 @@
     ]
   },
   "gateway": {
-    "ok": true
+    "ok": false,
+    "error": "health check failed"
   },
   "threats": {
     "criticalAlerts": 0,
     "highAlerts": 0,
-    "warnAlerts": 30,
-    "totalAlerts": 30
+    "warnAlerts": 0,
+    "totalAlerts": 0
   },
-  "alerts": [
-    {
-      "ts": "2026-04-27T05:36:24.901Z",
-      "level": "warn",
-      "message": "warn plugins {\"subsystem\":\"plugins\"} [plugins] 3 plugin(s) failed to initialize (validation: discord, slack, whatsapp). Run 'openclaw plugins list' for details."
-    },
-    {
-      "ts": "2026-04-27T05:36:38.507Z",
-      "level": "warn",
-      "message": "error Gateway failed to start: gateway already running (pid 32009); lock timeout after 5000ms"
-    },
-    {
-      "ts": "2026-04-27T05:36:38.545Z",
-      "level": "warn",
-      "message": "error Port 18789 is already in use."
-    },
-    {
-      "ts": "2026-04-27T05:36:38.547Z",
-      "level": "warn",
-      "message": "error - Port is in use but process details are unavailable (install lsof or run as an admin user)."
-    },
-    {
-      "ts": "2026-04-27T05:36:51.427Z",
-      "level": "warn",
-      "message": "info [warn] subagent cleanup finalize failed (6b95dc50-73d4-4aef-916f-e0e729ac1f4b): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
-    },
-    {
-      "ts": "2026-04-27T05:36:51.435Z",
-      "level": "warn",
-      "message": "info [warn] subagent cleanup finalize failed (4d87dc83-92d9-4ffa-9c0e-5e57c8ad9fc1): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
-    },
-    {
-      "ts": "2026-04-27T05:36:51.440Z",
-      "level": "warn",
-      "message": "info [warn] subagent cleanup finalize failed (c0049a62-e13e-4263-9c90-73114c0ea944): Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[internal-module]"
-    },
-    {
-      "ts": "2026-04-27T05:37:03.978Z",
-      "level": "warn",
-      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=878bf4071103 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
-    },
-    {
-      "ts": "2026-04-27T05:37:11.640Z",
-      "level": "warn",
-      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"invalid-handshake\",\"handshake\":\"failed\",\"durationMs\":1190,\"lastFrameType\":\"req\",\"lastFrameMethod\":\"connect\",\"lastFrameId\":\"650d9202-7e3b-4964-93cd-..."
-    },
-    {
-      "ts": "2026-04-27T05:37:26.296Z",
-      "level": "warn",
-      "message": "warn gateway/ws {\"subsystem\":\"gateway/ws\"} {\"cause\":\"invalid-handshake\",\"handshake\":\"failed\",\"durationMs\":453,\"lastFrameType\":\"req\",\"lastFrameMethod\":\"connect\",\"lastFrameId\":\"4fbe0526-03d8-4e43-9f60-2..."
-    },
-    {
-      "ts": "2026-04-27T05:39:53.656Z",
-      "level": "warn",
-      "message": "warn agent/embedded {\"subsystem\":\"agent/embedded\"} {\"event\":\"embedded_run_agent_end\",\"tags\":[\"error_handling\",\"lifecycle\",\"agent_end\",\"assistant_error\"],\"runId\":\"boot-2026-04-27_05-39-38-217-c1d9e02f\"..."
-    },
-    {
-      "ts": "2026-04-27T05:40:49.895Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T05:40:49.924Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T05:40:49.961Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
-    },
-    {
-      "ts": "2026-04-27T05:40:49.981Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T05:49:14.342Z",
-      "level": "warn",
-      "message": "warn plugins {\"subsystem\":\"plugins\"} memory-core: managed dreaming cron could not be reconciled (cron service unavailable)."
-    },
-    {
-      "ts": "2026-04-27T06:10:55.346Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:10:55.385Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:10:55.436Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
-    },
-    {
-      "ts": "2026-04-27T06:10:55.460Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:11:49.255Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:11:49.286Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:11:49.380Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
-    },
-    {
-      "ts": "2026-04-27T06:11:49.428Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:12:47.252Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for MEMORY.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:12:47.303Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-26.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:12:47.320Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for this file."
-    },
-    {
-      "ts": "2026-04-27T06:12:47.396Z",
-      "level": "warn",
-      "message": "warn memory {\"subsystem\":\"memory\"} chunks written for memory/2026-04-27-context-management.md without vector embeddings \u2014 chunks_vec not updated (sqlite-vec unavailable). Vector recall degraded for th..."
-    },
-    {
-      "ts": "2026-04-27T06:19:12.249Z",
-      "level": "warn",
-      "message": "info cron {\"module\":\"cron\",\"storePath\":\"[internal-path]\"} {\"jobId\":\"bee6147d-7312-40c6-8d68-5a0272e88a7c\",\"consecutiveErrors\":9,\"backoffMs\":3600000,\"nextRunAtMs\":1777274352238} cron: ap..."
-    },
-    {
-      "ts": "2026-04-27T06:19:12.255Z",
-      "level": "warn",
-      "message": "warn cron-delivery {\"subsystem\":\"cron-delivery\"} {\"error\":\"Delivering to Telegram requires target <chatId>\"} cron: failed to resolve failure destination target"
-    }
-  ]
+  "alerts": []
 }
