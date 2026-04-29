@@ -1,223 +1,46 @@
 {
-  "ts": 1777452919559,
-  "updatedAt": "2026-04-29T08:55:19.559344+00:00",
-  "score": 50,
+  "ts": 1777473034813,
+  "updatedAt": "2026-04-29T14:30:34.813076+00:00",
+  "score": 75,
   "system": {
     "load": [
-      16.82,
-      21.28,
-      22.07
+      17.21,
+      19.53,
+      20.85
     ],
     "loadStatus": "high",
     "cpuCores": 16,
     "memory": {
       "totalMB": 515793,
-      "usedMB": 160177,
-      "pct": 31.1
+      "usedMB": 163663,
+      "pct": 31.7
     },
     "disk": {
-      "usedMB": 8099,
+      "usedMB": 8130,
       "totalMB": 10240,
       "pct": 80
     },
-    "uptime": "39d 22h",
+    "uptime": "40d 4h",
     "zombies": 0,
-    "processes": 42
+    "processes": 83
   },
   "audit": {
     "summary": {
-      "critical": 1,
-      "warn": 2,
-      "info": 1
+      "critical": 0,
+      "warn": 0,
+      "info": 0
     },
-    "findings": [
-      {
-        "checkId": "summary.attack_surface",
-        "severity": "info",
-        "title": "Attack surface summary",
-        "detail": "groups: open=0, allowlist=4\ntools.elevated: enabled\nhooks.webhooks: disabled\nhooks.internal: enabled\nbrowser control: enabled\ntrust model: personal assistant (one trusted operator boundary), not hostile multi-tenant on one shared gateway"
-      },
-      {
-        "checkId": "gateway.trusted_proxies_missing",
-        "severity": "warn",
-        "title": "Reverse proxy headers are not trusted",
-        "detail": "gateway.bind is loopback and gateway.trustedProxies is empty. If you expose the Control UI through a reverse proxy, configure trusted proxies so local-client checks cannot be spoofed.",
-        "remediation": "Set gateway.trustedProxies to your proxy IPs or keep the Control UI local-only."
-      },
-      {
-        "checkId": "tools.elevated.allowFrom.webchat.wildcard",
-        "severity": "critical",
-        "title": "Elevated exec allowlist contains wildcard",
-        "detail": "tools.elevated.allowFrom.webchat includes \"*\" which effectively approves everyone on that channel for elevated mode."
-      },
-      {
-        "checkId": "tools.exec.security_full_configured",
-        "severity": "warn",
-        "title": "Exec security=full is configured",
-        "detail": "Full exec trust is enabled for: main, hager.",
-        "remediation": "Prefer tools.exec.security=\"allowlist\" with ask prompts, and reserve \"full\" for tightly scoped break-glass agents only."
-      }
-    ]
+    "findings": []
   },
   "gateway": {
-    "ok": true
+    "ok": false,
+    "error": "health check failed"
   },
   "threats": {
     "criticalAlerts": 0,
     "highAlerts": 0,
-    "warnAlerts": 30,
-    "totalAlerts": 30
+    "warnAlerts": 0,
+    "totalAlerts": 0
   },
-  "alerts": [
-    {
-      "ts": "2026-04-29T08:39:55.090Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:40:45.824Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:41:47.954Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:42:32.711Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:43:33.862Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:44:32.420Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:46:38.945Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:47:23.251Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:48:50.002Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:49:21.216Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): McpError: MCP error -32000: Connec..."
-    },
-    {
-      "ts": "2026-04-29T08:49:27.360Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"asana\" ([internal-path] Error: spawn [internal-path] EAGA..."
-    },
-    {
-      "ts": "2026-04-29T08:49:27.387Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: spawn npx EAGAIN"
-    },
-    {
-      "ts": "2026-04-29T08:49:27.406Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"google-ads\" ([internal-path] Error: spawn [internal-path]"
-    },
-    {
-      "ts": "2026-04-29T08:49:27.439Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"meta-ads\" ([internal-path] Error: spawn [internal-path]"
-    },
-    {
-      "ts": "2026-04-29T08:51:21.769Z",
-      "level": "warn",
-      "message": "error Failed to install bundled plugin runtime deps: Error: npm error code EACCES"
-    },
-    {
-      "ts": "2026-04-29T08:55:50.191132+00:00",
-      "level": "warn",
-      "message": "npm error A complete log of this run can be found in: [internal-path]"
-    },
-    {
-      "ts": "2026-04-29T08:51:23.468Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] discord missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:23.698Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] slack missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:23.780Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] whatsapp missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:25.240Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] discord missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:25.279Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] slack missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:25.293Z",
-      "level": "warn",
-      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] whatsapp missing register/activate export"
-    },
-    {
-      "ts": "2026-04-29T08:51:25.302Z",
-      "level": "warn",
-      "message": "warn plugins {\"subsystem\":\"plugins\"} [plugins] 3 plugin(s) failed to initialize (validation: discord, slack, whatsapp). Run 'openclaw plugins list' for details."
-    },
-    {
-      "ts": "2026-04-29T08:51:52.140Z",
-      "level": "warn",
-      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
-    },
-    {
-      "ts": "2026-04-29T08:52:00.208Z",
-      "level": "warn",
-      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in announcing for 8069ms (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 state=..."
-    },
-    {
-      "ts": "2026-04-29T08:52:03.755Z",
-      "level": "warn",
-      "message": "warn cron {\"module\":\"cron\",\"storePath\":\"[internal-path]\"} {\"jobId\":\"993c7191-e84f-433d-b3cb-0fb43e6d6265\",\"runningAtMs\":1777452552097} cron: clearing stale running marker on startup"
-    },
-    {
-      "ts": "2026-04-29T08:53:04.152Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:53:15.473Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:54:34.323Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    },
-    {
-      "ts": "2026-04-29T08:55:02.112Z",
-      "level": "warn",
-      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
-    }
-  ]
+  "alerts": []
 }
