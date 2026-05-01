@@ -1,28 +1,28 @@
 {
-  "ts": 1777628343645,
-  "updatedAt": "2026-05-01T09:39:03.645984+00:00",
+  "ts": 1777652332140,
+  "updatedAt": "2026-05-01T16:18:52.140242+00:00",
   "score": 45,
   "system": {
     "load": [
-      47.23,
-      52.62,
-      55.63
+      81.15,
+      64.95,
+      62.75
     ],
     "loadStatus": "critical",
     "cpuCores": 16,
     "memory": {
       "totalMB": 515793,
-      "usedMB": 123676,
+      "usedMB": 123982,
       "pct": 24.0
     },
     "disk": {
-      "usedMB": 8326,
+      "usedMB": 8348,
       "totalMB": 10240,
       "pct": 82
     },
-    "uptime": "41d 23h",
+    "uptime": "42d 6h",
     "zombies": 0,
-    "processes": 72
+    "processes": 31
   },
   "audit": {
     "summary": {
@@ -60,14 +60,164 @@
     ]
   },
   "gateway": {
-    "ok": false,
-    "error": "health check failed"
+    "ok": true
   },
   "threats": {
     "criticalAlerts": 0,
     "highAlerts": 0,
-    "warnAlerts": 0,
-    "totalAlerts": 0
+    "warnAlerts": 30,
+    "totalAlerts": 30
   },
-  "alerts": []
+  "alerts": [
+    {
+      "ts": "2026-05-01T16:16:26.343Z",
+      "level": "warn",
+      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] discord missing register/activate export"
+    },
+    {
+      "ts": "2026-05-01T16:16:26.364Z",
+      "level": "warn",
+      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] slack missing register/activate export"
+    },
+    {
+      "ts": "2026-05-01T16:16:26.383Z",
+      "level": "warn",
+      "message": "error plugins {\"subsystem\":\"plugins\"} [plugins] whatsapp missing register/activate export"
+    },
+    {
+      "ts": "2026-05-01T16:16:26.385Z",
+      "level": "warn",
+      "message": "warn plugins {\"subsystem\":\"plugins\"} [plugins] 3 plugin(s) failed to initialize (validation: discord, slack, whatsapp). Run 'openclaw plugins list' for details."
+    },
+    {
+      "ts": "2026-05-01T16:17:06.104Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
+    },
+    {
+      "ts": "2026-05-01T16:17:15.584Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 9480ms (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 state=pro..."
+    },
+    {
+      "ts": "2026-05-01T16:17:22.451Z",
+      "level": "warn",
+      "message": "warn cron {\"module\":\"cron\",\"storePath\":\"[internal-path]\"} {\"jobId\":\"bee6147d-7312-40c6-8d68-5a0272e88a7c\",\"runningAtMs\":1777652053808} cron: clearing stale running marker on startup"
+    },
+    {
+      "ts": "2026-05-01T16:17:22.452Z",
+      "level": "warn",
+      "message": "warn cron {\"module\":\"cron\",\"storePath\":\"[internal-path]\"} {\"jobId\":\"993c7191-e84f-433d-b3cb-0fb43e6d6265\",\"runningAtMs\":1777652053808} cron: clearing stale running marker on startup"
+    },
+    {
+      "ts": "2026-05-01T16:17:37.059Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 14604ms (gateway fqdn=1898b4ccf946 (OpenClaw) (2)._openclaw-gw._tcp.local. host=openclaw-(2).local. port=18789 ..."
+    },
+    {
+      "ts": "2026-05-01T16:17:43.058Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
+    },
+    {
+      "ts": "2026-05-01T16:17:59.987Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 16929ms (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 state=pr..."
+    },
+    {
+      "ts": "2026-05-01T16:18:10.682Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (2)._openclaw-gw._tcp.local. host=openclaw-(2).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:18:15.684Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 10005ms (gateway fqdn=1898b4ccf946 (OpenClaw) (7)._openclaw-gw._tcp.local. host=openclaw-(7).local. port=18789 ..."
+    },
+    {
+      "ts": "2026-05-01T16:18:20.684Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (5)._openclaw-gw._tcp.local. host=openclaw-(5).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:18:25.684Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (10)._openclaw-gw._tcp.local. host=openclaw-(10).local. port..."
+    },
+    {
+      "ts": "2026-05-01T16:18:30.684Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 9999ms (gateway fqdn=1898b4ccf946 (OpenClaw) (15)._openclaw-gw._tcp.local. host=openclaw-(15).local. port=18789..."
+    },
+    {
+      "ts": "2026-05-01T16:18:35.686Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (6)._openclaw-gw._tcp.local. host=openclaw-(6).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:18:39.506Z",
+      "level": "warn",
+      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
+    },
+    {
+      "ts": "2026-05-01T16:18:39.542Z",
+      "level": "warn",
+      "message": "warn bundle-mcp {\"subsystem\":\"bundle-mcp\"} failed to start server \"fathom\" (npx --prefix [internal-path] mcp-remote https://api.fathom.ai/mcp): Error: MCP server connection timed..."
+    },
+    {
+      "ts": "2026-05-01T16:18:40.686Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (11)._openclaw-gw._tcp.local. host=openclaw-(11).local. port..."
+    },
+    {
+      "ts": "2026-05-01T16:18:45.777Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 10092ms (gateway fqdn=1898b4ccf946 (OpenClaw) (16)._openclaw-gw._tcp.local. host=openclaw-(16).local. port=1878..."
+    },
+    {
+      "ts": "2026-05-01T16:18:50.908Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw)._openclaw-gw._tcp.local. host=openclaw.local. port=18789 sta..."
+    },
+    {
+      "ts": "2026-05-01T16:18:55.910Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (4)._openclaw-gw._tcp.local. host=openclaw-(4).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:19:01.113Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 10205ms (gateway fqdn=1898b4ccf946 (OpenClaw) (8)._openclaw-gw._tcp.local. host=openclaw-(8).local. port=18789 ..."
+    },
+    {
+      "ts": "2026-05-01T16:19:06.690Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (3)._openclaw-gw._tcp.local. host=openclaw-(3).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:19:18.979Z",
+      "level": "warn",
+      "message": "warn agent/embedded {\"subsystem\":\"agent/embedded\"} {\"event\":\"embedded_run_agent_end\",\"tags\":[\"error_handling\",\"lifecycle\",\"agent_end\",\"assistant_error\"],\"runId\":\"boot-2026-05-01_16-17-20-449-340f920a\"..."
+    },
+    {
+      "ts": "2026-05-01T16:19:19.003Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 12313ms (gateway fqdn=1898b4ccf946 (OpenClaw) (4)._openclaw-gw._tcp.local. host=openclaw-(4).local. port=18789 ..."
+    },
+    {
+      "ts": "2026-05-01T16:19:24.475Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (2)._openclaw-gw._tcp.local. host=openclaw-(2).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:19:29.477Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} watchdog detected non-announced service; attempting re-advertise (gateway fqdn=1898b4ccf946 (OpenClaw) (4)._openclaw-gw._tcp.local. host=openclaw-(4).local. port=1..."
+    },
+    {
+      "ts": "2026-05-01T16:19:34.476Z",
+      "level": "warn",
+      "message": "warn bonjour {\"subsystem\":\"bonjour\"} restarting advertiser (service stuck in probing for 10002ms (gateway fqdn=1898b4ccf946 (OpenClaw) (9)._openclaw-gw._tcp.local. host=openclaw-(9).local. port=18789 ..."
+    }
+  ]
 }
