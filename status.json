@@ -1,28 +1,28 @@
 {
-  "ts": 1777605615716,
-  "updatedAt": "2026-05-01T03:20:15.716250+00:00",
+  "ts": 1777628343645,
+  "updatedAt": "2026-05-01T09:39:03.645984+00:00",
   "score": 45,
   "system": {
     "load": [
-      28.11,
-      39.54,
-      41.83
+      47.23,
+      52.62,
+      55.63
     ],
     "loadStatus": "critical",
     "cpuCores": 16,
     "memory": {
       "totalMB": 515793,
-      "usedMB": 115650,
-      "pct": 22.4
+      "usedMB": 123676,
+      "pct": 24.0
     },
     "disk": {
-      "usedMB": 8290,
+      "usedMB": 8326,
       "totalMB": 10240,
-      "pct": 81
+      "pct": 82
     },
-    "uptime": "41d 17h",
+    "uptime": "41d 23h",
     "zombies": 0,
-    "processes": 73
+    "processes": 72
   },
   "audit": {
     "summary": {
